@@ -39,9 +39,12 @@ class Neuron(object):
         self.__f = f
         self.__f_derivative = f_derivative
         self.__inputs = []
-        self.error = 0
-        self.output = 0
+        self.error = 0.0
+        self.output = 0.0
 
+    def reset_error(self):
+        self.error = 0.0
+        
     def add_input(self, neuron, weight = None):
         if weight is None:
             weight = random.uniform(-1, 1)
@@ -155,6 +158,7 @@ class NeuronLayer(object):
     def update_weights(self, learning_rate, momentum):
         for neuron in self.neurons:
             neuron.update_weights(learning_rate, momentum)
+            neuron.reset_error()
 
 
 class MultilayerPerceptron(object):
